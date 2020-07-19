@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MVPExample</string>
     <string name="load">load</string>
+    <string name="detail">detail</string>
 </resources>

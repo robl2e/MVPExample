@@ -9,13 +9,16 @@ import android.widget.TextView;
 
 import com.robl2e.mvpexample.R;
 import com.robl2e.mvpexample.data.local.DataRepository;
+import com.robl2e.mvpexample.data.local.DataRepositoryImpl;
 import com.robl2e.mvpexample.data.model.Data;
+import com.robl2e.mvpexample.ui.detail.DetailActivity;
 import com.robl2e.mvpexample.ui.mvp.AbstractMvpActivity;
 
 public class MainActivity extends AbstractMvpActivity<MainContract.MvpView, MainContract.Presenter>
         implements MainContract.MvpView {
 
     private Button loadDataButton;
+    private Button detailButton;
     private ProgressBar progressIndicator;
     private TextView dataTextView;
 
@@ -35,12 +38,19 @@ public class MainActivity extends AbstractMvpActivity<MainContract.MvpView, Main
                 getPresenter().loadData();
             }
         });
+        detailButton = (Button) findViewById(R.id.button_detail);
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailActivity.Companion.start(MainActivity.this);
+            }
+        });
     }
 
     @NonNull
     @Override
     public MainContract.Presenter createPresenter() {
-        DataRepository dataRepository = new DataRepository();
+        DataRepository dataRepository = new DataRepositoryImpl();
         return new MainPresenter(dataRepository);
     }
 
